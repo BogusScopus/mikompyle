@@ -19,13 +19,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # - name: Cache macOS deps
-      #   if: runner.os == 'macOS'
-      #   id: cache-deps-mac
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: /usr/local
-      #     key: macos-deps-${{ hashFiles('scripts/build_deps.sh') }}
+      - name: Cache macOS deps
+        if: runner.os == 'macOS'
+        id: cache-deps-mac
+        uses: actions/cache@v4
+        with:
+          path: /usr/local
+          key: macos-deps-${{ hashFiles('scripts/build_deps.sh') }}
 
       - name: Build wheels
         if: >
@@ -37,9 +37,9 @@ jobs:
           CIBW_SKIP: "*i686 *ppc64le *s390x *win32* *musllinux*"
 
           CIBW_MANYLINUX_X86_64_IMAGE: bogusscopus/manylinux-deps:latest
-          # CIBW_BEFORE_ALL_MACOS: >
-          #   ${{ steps.cache-deps-mac.outputs.cache-hit != 'true' &&
-          #       'bash {project}/scripts/build_deps.sh' || 'echo deps already cached' }}
+          CIBW_BEFORE_ALL_MACOS: >
+            ${{ steps.cache-deps-mac.outputs.cache-hit != 'true' &&
+                'bash {project}/scripts/build_deps.sh' || 'echo deps already cached' }}
 
           CIBW_TEST_REQUIRES: pytest
           CIBW_TEST_COMMAND: "cd {project} && pytest {project}/tests"
