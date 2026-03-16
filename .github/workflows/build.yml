@@ -33,8 +33,7 @@ jobs:
           CIBW_BUILD: "cp312-*"
           CIBW_SKIP: "*i686 *ppc64le *s390x *win32* *musllinux*"
 
-          CIBW_MANYLINUX_X86_64_IMAGE: >
-            ghcr.io/bogusscopus/mikompyle/manylinux-deps:latest
+          CIBW_MANYLINUX_X86_64_IMAGE: bogusscopus/manylinux-deps:latest
           CIBW_BEFORE_ALL_MACOS: >
             ${{ steps.cache-deps-mac.outputs.cache-hit != 'true' &&
                 'bash {project}/scripts/build_deps.sh' || 'echo deps already cached' }}

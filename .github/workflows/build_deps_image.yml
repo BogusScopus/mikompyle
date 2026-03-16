@@ -15,12 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Log in to GHCR
+      - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: bogusscopus
+          password: ${{ secrets.DOCKER }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -28,4 +27,4 @@ jobs:
           context: .
           file: docker/manylinux_deps.Dockerfile
           push: true
-          tags: ghcr.io/bogusscopus/mikompyle/manylinux-deps:latest
+          tags: bogusscopus/manylinux-deps:latest
