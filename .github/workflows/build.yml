@@ -28,6 +28,9 @@ jobs:
           key: macos-deps-${{ hashFiles('scripts/build_deps.sh') }}
 
       - name: Build wheels
+        if: >
+          github.event_name != 'workflow_run' ||
+          github.event.workflow_run.conclusion == 'success'
         uses: pypa/cibuildwheel@v3.4.0
         env:
           CIBW_BUILD: "cp312-*"
