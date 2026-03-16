@@ -28,4 +28,4 @@ jobs:
           context: .
           file: docker/manylinux_deps.Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/manylinux-deps:latest
+          tags: ghcr.io/bogusscopus/mikompyle/manylinux-deps:latest
